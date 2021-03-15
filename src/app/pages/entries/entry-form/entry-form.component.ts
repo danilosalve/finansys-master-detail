@@ -3,7 +3,8 @@ import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { toastr } from 'node_modules/toastr';
+
+import * as toastr from 'toastr';
 
 import { Category } from './../../categories/shared/category.model';
 import { Entry } from '../shared/entry.model';
@@ -147,7 +148,7 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
             this.entry = entry;
             this.entryForm.patchValue(entry);
           },
-          () => alert('Ocorreu um erro no servidor, tenta mais tarde.')
+          () => toastr.error('Ocorreu um erro no servidor, tenta mais tarde.')
         );
     }
   }
@@ -178,14 +179,14 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
   }
 
   private actionsForSucess(entry: Entry): void {
-    alert('Solicitacao processada com sucesso');
+    toastr.success('Solicitacao processada com sucesso');
     this.router
       .navigateByUrl('entries', { skipLocationChange: true })
       .then(() => this.router.navigate(['entries', entry.id, 'edit']));
   }
 
   private actionsForError(error: any): void {
-    alert('Ocorreu um erro ao processar a sua solicitação!');
+    toastr.error('Ocorreu um erro ao processar a sua solicitação!');
     this.submittingForm = false;
     if (error.status === 422) {
       this.serverErrorMessages = JSON.parse(error._body).errors;

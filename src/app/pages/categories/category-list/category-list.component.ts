@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { Category } from '../shared/category.model';
 import { CategoryService } from './../shared/category.service';
 
+import * as toastr from 'toastr';
+
 @Component({
   selector: 'app-category-list',
   templateUrl: './category-list.component.html',
@@ -20,7 +22,7 @@ export class CategoryListComponent implements OnInit {
   ngOnInit(): void {
     this.categoryService.getAll().subscribe(
       categories => this.categories = categories,
-      error => alert('Error ao carregar a lista')
+      error => toastr.error('Error ao carregar a lista')
     );
   }
 
@@ -30,7 +32,7 @@ export class CategoryListComponent implements OnInit {
     if (mustDelete) {
       this.categoryService.delete(category.id).subscribe(
         () => this.categories = this.categories.filter( res => res !== category),
-        () => alert('Erro ao tentar excluir!!!')
+        () => toastr.error('Erro ao tentar excluir!!!')
       );
     }
   }

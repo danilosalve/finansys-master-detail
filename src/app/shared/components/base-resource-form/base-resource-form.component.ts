@@ -1,10 +1,10 @@
 
-import { OnInit, AfterContentChecked, Injector } from '@angular/core';
+import { OnInit, AfterContentChecked, Injector, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
-import toastr from 'toastr';
+import * as toastr from 'toastr';
 
 import { BaseResourceModel } from '../../models/base-resource.model';
 import { BaseResourceService } from '../../services/base-resource.service';
@@ -70,7 +70,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
           this.resource = resource;
           this.resourceForm.patchValue(resource);
       },
-      () => alert('Ocorreu um erro no servidor, tenta mais tarde.')
+      () => toastr.error('Ocorreu um erro no servidor, tenta mais tarde.')
       );
     }
   }
@@ -113,7 +113,6 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
 
   protected actionsForSucess(resource: T): void {
     toastr.success('Solicitacao processada com sucesso');
-
     const baseComponentPath: string = this.route.snapshot.parent.url[0].path;
 
     this.router.navigateByUrl(baseComponentPath, {skipLocationChange: true}).then(

@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { Entry } from '../shared/entry.model';
 import { EntryService } from './../shared/entry.service';
 
+import * as toastr from 'toastr';
+
 @Component({
   selector: 'app-entry-list',
   templateUrl: './entry-list.component.html',
@@ -20,7 +22,7 @@ export class EntryListComponent implements OnInit {
   ngOnInit(): void {
     this.entryService.getAll().subscribe(
       entries => this.entries = entries.sort((a, b) => b.id - a.id),
-      () => alert('Error ao Carregar a lista')
+      () => toastr.error('Error ao Carregar a lista')
     );
   }
 
@@ -30,7 +32,7 @@ export class EntryListComponent implements OnInit {
     if (mustDelete) {
       this.entryService.delete(entry.id).subscribe(
         () => this.entries = this.entries.filter( res => res !== entry),
-        () => alert('Erro ao tentar excluir!!!')
+        () => toastr.error('Erro ao tentar excluir!!!')
       );
     }
   }
