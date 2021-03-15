@@ -1,14 +1,6 @@
-<nav class="md-5">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item">
-      <a routerLink="/">Home</a>
-    </li>
-    <li class="breadcrumb-item">
-      <a routerLink="/entries">Lançamentos</a>
-    </li>
-    <li class="breadcrumb-item active">{{ pageTitle }}</li>
-  </ol>
-</nav>
+<app-bread-crumb
+  [items]="[{ text: 'Lançamentos', link: '/entries' }, { text: pageTitle }]"
+></app-bread-crumb>
 
 <div class="row mb-4">
   <div class="col-md-9">
@@ -28,13 +20,22 @@
       <div class="form-group col-md-2">
         <label for="type">Tipo</label>
 
-        <select name="type" id="type" formControlName="type" class="form-control">
-          <option *ngFor="let option of typeOptions" [value]="option.value">{{ option.text }}</option>
+        <select
+          name="type"
+          id="type"
+          formControlName="type"
+          class="form-control"
+        >
+          <option *ngFor="let option of typeOptions" [value]="option.value">
+            {{ option.text }}
+          </option>
         </select>
 
         <div
           class="text-danger"
-          *ngIf="resourceForm.get('type').invalid && resourceForm.get('type').touched"
+          *ngIf="
+            resourceForm.get('type').invalid && resourceForm.get('type').touched
+          "
         >
           <div *ngIf="resourceForm.get('type').errors.required">
             Campo obrigatorio
@@ -53,7 +54,9 @@
         />
         <div
           class="text-danger"
-          *ngIf="resourceForm.get('name').invalid && resourceForm.get('name').touched"
+          *ngIf="
+            resourceForm.get('name').invalid && resourceForm.get('name').touched
+          "
         >
           <div *ngIf="resourceForm.get('name').errors.required">
             Campo obrigatorio
@@ -83,7 +86,8 @@
         <div
           class="text-danger"
           *ngIf="
-            resourceForm.get('amount').invalid && resourceForm.get('amount').touched
+            resourceForm.get('amount').invalid &&
+            resourceForm.get('amount').touched
           "
         >
           <div *ngIf="resourceForm.get('amount').errors.required">
@@ -109,7 +113,9 @@
 
         <div
           class="text-danger"
-          *ngIf="resourceForm.get('date').invalid && resourceForm.get('date').touched"
+          *ngIf="
+            resourceForm.get('date').invalid && resourceForm.get('date').touched
+          "
         >
           <div *ngIf="resourceForm.get('date').errors.required">
             Campo obrigatorio
@@ -138,7 +144,9 @@
         </div>
         <div
           class="text-danger"
-          *ngIf="resourceForm.get('paid').invalid && resourceForm.get('paid').touched"
+          *ngIf="
+            resourceForm.get('paid').invalid && resourceForm.get('paid').touched
+          "
         >
           <div *ngIf="resourceForm.get('paid').errors.required">
             Campo obrigatorio
