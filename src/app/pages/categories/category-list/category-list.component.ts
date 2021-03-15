@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 
 import { BaseResourceListComponent } from './../../../shared/components/base-resource-list/base-resource-list.component';
-
 import { Category } from '../shared/category.model';
 import { CategoryService } from './../shared/category.service';
-
-import * as toastr from 'toastr';
-
 @Component({
   selector: 'app-category-list',
   templateUrl: './category-list.component.html',

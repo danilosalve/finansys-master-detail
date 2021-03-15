@@ -1,40 +1,19 @@
-import { element } from 'protractor';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
+import { BaseResourceListComponent } from './../../../shared/components/base-resource-list/base-resource-list.component';
 import { Entry } from '../shared/entry.model';
 import { EntryService } from './../shared/entry.service';
-
-import * as toastr from 'toastr';
 
 @Component({
   selector: 'app-entry-list',
   templateUrl: './entry-list.component.html',
   styleUrls: ['./entry-list.component.css']
 })
-export class EntryListComponent implements OnInit {
-
-  public entries: Entry[] = [];
+export class EntryListComponent implements extends BaseResourceListComponent<Entry> {
 
   constructor(
     private entryService: EntryService
-  ) { }
-
-  ngOnInit(): void {
-    this.entryService.getAll().subscribe(
-      entries => this.entries = entries.sort((a, b) => b.id - a.id),
-      () => toastr.error('Error ao Carregar a lista')
-    );
+  ) {
+    super(entryService);
   }
-
-  deleteEntry(entry): void {
-    const mustDelete = confirm('Deseja realmente excluir este item?');
-
-    if (mustDelete) {
-      this.entryService.delete(entry.id).subscribe(
-        () => this.entries = this.entries.filter( res => res !== entry),
-        () => toastr.error('Erro ao tentar excluir!!!')
-      );
-    }
-  }
-
 }
