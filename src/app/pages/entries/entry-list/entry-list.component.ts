@@ -9,7 +9,7 @@ import { EntryService } from './../shared/entry.service';
   templateUrl: './entry-list.component.html',
   styleUrls: ['./entry-list.component.css']
 })
-export class EntryListComponent implements extends BaseResourceListComponent<Entry> {
+export class EntryListComponent extends BaseResourceListComponent<Entry> {
 
   constructor(
     private entryService: EntryService
