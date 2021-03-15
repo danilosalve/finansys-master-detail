@@ -8,7 +8,6 @@ import { toastr } from 'node_modules/toastr';
 import { Category } from './../../categories/shared/category.model';
 import { Entry } from '../shared/entry.model';
 import { EntryService } from './../shared/entry.service';
-
 @Component({
   selector: 'app-entry-form',
   templateUrl: './entry-form.component.html',
@@ -107,15 +106,13 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
     }
   }
 
-  getTypeOptions(): Array<any>{
-    return Object.entries(Entry.types).map(
-      ([value, text]) => {
-        return {
-          text: text,
-          value: value
-        }
-      }
-    );
+  getTypeOptions(): Array<any> {
+    return Object.entries(Entry.types).map(([value, text]) => {
+      return {
+        text: text,
+        value: value,
+      };
+    });
   }
 
   private setCurrentAction(): void {
@@ -165,7 +162,7 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
   }
 
   private createEntry(): void {
-    const entry: Entry = Object.assign(new Entry(), this.entryForm.value);
+    const entry: Entry = Entry.fromJson(this.entryForm.value);
     this.entryService.create(entry).subscribe(
       (res) => this.actionsForSucess(res),
       (error) => this.actionsForError(error)
@@ -173,7 +170,7 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
   }
 
   private updateEntry(): void {
-    const entry: Entry = Object.assign(new Entry(), this.entryForm.value);
+    const entry: Entry = Entry.fromJson(this.entryForm.value);
     this.entryService.update(entry).subscribe(
       (res) => this.actionsForSucess(res),
       (error) => this.actionsForError(error)
