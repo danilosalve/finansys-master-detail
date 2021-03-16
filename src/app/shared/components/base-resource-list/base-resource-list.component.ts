@@ -1,9 +1,11 @@
-import { OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { BaseResourceModel } from '../../models/base-resource.model';
 import { BaseResourceService } from '../../services/base-resource.service';
-
-export class BaseResourceListComponent<T extends BaseResourceModel> implements OnInit {
+@Component({
+  template: ''
+})
+export abstract class BaseResourceListComponent<T extends BaseResourceModel> implements OnInit {
   resources: T[] = [];
 
   constructor(
