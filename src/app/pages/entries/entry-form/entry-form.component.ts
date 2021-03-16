@@ -68,6 +68,8 @@ export class EntryFormComponent extends BaseResourceFormComponent<Entry> impleme
     clear: 'Limpar',
   };
 
+  typeOptions: Array<any>;
+
   constructor(
     protected entryService: EntryService,
     protected categorieService: CategoryService,
@@ -78,10 +80,11 @@ export class EntryFormComponent extends BaseResourceFormComponent<Entry> impleme
 
   ngOnInit(): void {
     this.loadCategories();
+    this.typeOptions = this.gettypeOptions();
     super.ngOnInit();
   }
 
-  get typeOptions(): Array<any> {
+  gettypeOptions(): Array<any> {
     return Object.entries(Entry.types).map(([value, text]) => {
       return {
         text: text,
